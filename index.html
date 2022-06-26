@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+
+    
+    <style>
+        .img-me {
+            width: 267px;
+            height: 322px;
+            margin: 0px 40px 0px 0px;
+        }
+    </style>
+    <title>Eric Chen's pages</title>
+</head>
+<body>
+    <div id="header">
+        <div id="logo"><a href="#"><img src="src/images/logo.png"></a></div>
+        <ul id="main-menu">
+            <li><a href="#about">About me</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+        </ul>
+    </div>
+
+    <div id="container">
+        <!--Begin About Section-->
+            <div id="about">
+                <h1>About me</h1>
+                <ul id="top-social">
+                    <li><a href="https://github.com/Chih-hengChen" target="_blank" class="github">Github</a></li>
+                    <li><a href="https://www.cnblogs.com/FailBetter/" target="_blank" class="cnblogs">cnBlogs</a></li>
+                </ul>
+                <div class="top-divider"></div>
+                <div class="content">
+                    <img class="img-me" src="src/images/me.JPG" />
+                    <h2>My Name is Chen Zhiheng, and I am a Front-End Developer.</h2>
+                    <p style="margin-top: 20px;">
+                        Graduated from the School of Information Management, 
+                        Wuhan University with a master's degree, majoring in library and information science.
+                        From the beginning of the graduate career, 
+                        I learned programming-related knowledge spontaneously, 
+                        and gradually became interested in development work 
+                        and regarded front-end developer as my future career. 
+                        In addition to the necessary skills commonly used in web development, 
+                        I am also familiar with the basic operations of PS and AI.
+                    </p>
+                    <p>
+                        My evaluation of myself is that 
+                        I have a strong interest in front-end positions,
+                        like active learning, not comfortable and comfortable, 
+                        and have certain technical pursuits.
+                        And I am serious and responsible for my work,
+                        result-oriented, have high work standards, 
+                        and have strong team communication and collaboration skills.
+                    </p>
+                    
+                    <form method="get" action="/src/resume.pdf" target="_blank">
+                        <button type="submit">Download my résumé</button>
+                     </form>
+                </div>
+            <div class="bottom-divider"></div> 
+            </div>
+        <!--End About Section-->
+
+        <!--Begin Experience Section-->   
+            <div id="experience">
+                <h1>Experience</h1>
+                <div class="top-divider"></div>
+                <div class="content">
+                    <div class="col">
+                    <h2>About programme language</h2>
+                    <p>
+                        I started learning Python and initially did some data analysis and graphing work using Python,
+                        also learned about basic machine learning. 
+                        when I targeted myself as a front-end developer I learned JavaScript. 
+                        Therefore, I have the front-end and back-end skills.
+                    </p>
+                    </div>
+                    
+                    <div class="col col-mid">
+                    <h2>About CS basics</h2>
+                    <p>
+                        Familiar with operating systems, computer networks and common data structures, 
+                        familiar with Linux common commands.
+                        Familiar with MySQL and InnoDB engine, understand Redis and data structures.
+                        I also be able to use git, docker and other development tools.
+                    </p>
+                    </div>
+                    
+                    <div class="col">
+                    <h2>About practice</h2>
+                    <p>
+                        During the graduate period, I have done some practical work in data analysis.
+                        Experienced in Django backend development, Vue component development and web development.
+                    </p>
+                    </div>
+                </div>    
+                <div class="bottom-divider"></div>
+            </div>
+        <!--End Experience Section-->
+
+        <!--Begin Hobbies Section-->  
+            <div id="hobbies">
+                <h1>Hobbies</h1>
+                <p>I am a interest-oriented person. If I'm interested in certain things,
+                     I'll dig into them and try to achieve something.
+                </p>
+                <div class="top-divider"></div>
+                    <div class="pic-loop middle">
+                        <div class="slides">
+                            <input type="radio" name="r" id="r1" checked>
+                            <input type="radio" name="r" id="r2">
+                            <input type="radio" name="r" id="r3">
+                            <input type="radio" name="r" id="r4">
+                            <input type="radio" name="r" id="r5">
+
+                            <div class="slide s1">
+                                <img src="src/images/hobby1.JPG" alt="">
+                            </div>
+                            <div class="slide">
+                                <img src="src/images/hobby2.JPG" alt="">
+                            </div>
+                            <div class="slide">
+                                <img src="src/images/hobby3.JPG" alt="">
+                            </div>
+                            <div class="slide">
+                                <img src="src/images/hobby4.jpg" alt="">
+                            </div>
+                            <div class="slide">
+                                <img src="src/images/hobby5.jpg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="slideNavigation">
+                            <label for="r1" class="bar"></label>
+                            <label for="r2" class="bar"></label>
+                            <label for="r3" class="bar"></label>
+                            <label for="r4" class="bar"></label>
+                            <label for="r5" class="bar"></label>
+                        </div>
+                    </div>
+                <div class="bottom-divider"></div>
+            </div>
+        <!--End hobbies Section-->
+    </div>
+
+     <!-- The JavaScript -->  
+     <script type="text/javascript">
+        $(function() {
+            $('#main-menu li a').bind('click',function(event){
+                var $anchor = $(this);
+                
+                $('html, body').stop().animate({
+                    scrollTop: $($anchor.attr('href')).offset().top
+                }, 1500,'easeInOutExpo');
+
+                event.preventDefault();
+            });
+        });
+        
+          $(document).ready(function(){
+        $("a[rel^='prettyPhoto']").prettyPhoto({social_tools:false, deeplinking: false});
+          });
+
+    </script>
+</body>
+</html>
