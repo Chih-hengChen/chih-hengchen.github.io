@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-cn">
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="theme-color" content= #93b658 >
+    <title>如何理解Javascript中的作用域 | Eric Chen's Blogs </title>
+
+    
+        <meta name="keywords" content=","/>
+        
+
+    
+    <meta name="description" content="什么是作用域在所有编程语言中，都支持存储变量，可以对其修改赋值，也可以在日后某个时刻使用这个变量。而这些变量存储在哪里？在需要使用时如何找到他们？能够使用哪些变量？这就需要一套规则，这套规则就是..."/>
+
+    
+
+    
+
+    
+
+    
+        
+<link rel="stylesheet" href="/lib/social-share.js/dist/css/share.min.css">
+
+    
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/materialize/dist/css/materialize.min.css">
+
+    
+<link rel="stylesheet" href="/lib/animate.css/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/post/atom-one-light.css">
+
+    
+<link rel="stylesheet" href="/css/pteris.css">
+
+
+
+    
+        
+<link rel="stylesheet" href="/css/post.css">
+
+    
+
+    
+        
+<link rel="stylesheet" href="/lib/lightgallery.js/dist/css/lightgallery.min.css">
+
+    
+
+    
+        
+<link rel="stylesheet" href="/css/mycss.css">
+
+    
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+
+<header>
+    
+        <div class="header-fixed">
+    <nav class="white lime-text lighten-1 " role="navigation">
+        <div class="nav-wrapper container">
+            <div id="logo-container">
+                <a href="/">
+                    
+                    <span class="brand-logo">Eric Chen</span>
+                </a>
+            </div>
+
+            <ul class="right hide-on-med-and-down">
+                
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse">
+                <i class="fa fa-bars green-text"></i></a>
+        </div>
+    </nav>
+</div>
+
+<ul id="nav-mobile" class="side-nav">
+    
+</ul>
+
+
+
+    
+</header>
+
+<main>
+    
+
+    <div id="post">
+        <div class="container">
+            <div id="post-header" class="center">
+                <h1 class="center">如何理解Javascript中的作用域</h1>
+                <span class="post-date center">
+                    <i class="fa fa-calendar"></i>
+                    <time datetime="2024-04-27T02:49:10.000Z">
+                        2024-04-27
+                    </time>
+                </span>
+
+                
+
+                
+                    <div class="post-gallery">
+                        <div id="lightgallery">
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            <article>
+                <div class="content">
+                    
+    <h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>在所有编程语言中，都支持存储变量，可以对其修改赋值，也可以在日后某个时刻使用这个变量。<br>而这些变量存储在哪里？在需要使用时如何找到他们？能够使用哪些变量？<br>这就需要一套规则，这套规则就是作用域。<strong>规定了如何存储找到可使用的变量</strong>。</p>
+<h3 id="JavaScript中的作用域"><a href="#JavaScript中的作用域" class="headerlink" title="JavaScript中的作用域"></a>JavaScript中的作用域</h3><p>在使用变量之前，我们一般都会先给变量定义赋值。</p>
+<h4 id="赋值语句"><a href="#赋值语句" class="headerlink" title="赋值语句"></a>赋值语句</h4><p>下面看下一句简单的赋值语句<code>var a = 2;</code>做了些什么。</p>
+<p>1.看到<code>var a</code>，编译器首先会询问作用域是否有名为<code>a</code>的变量存在同一个作用域集合中。<br>2.如果存在，则忽略声明，继续编译。反之，则要求作用域在当前作用域的集合中声明一个新的变量名为<code>a</code>。<br>3.引擎运行代码，遇到<code>a = 2</code>，首先询问作用域，是否存在叫做<code>a</code>的变量，如果是则使用这个变量，否则继续查找。<br>4.最终引擎将找到了变量<code>a</code>，并将2赋值给它。否则引擎会抛出一个异常。</p>
+<h4 id="赋值语句总结"><a href="#赋值语句总结" class="headerlink" title="赋值语句总结"></a>赋值语句总结</h4><p><strong>总结</strong>：变量的赋值操作会执行两个动作，首先编译器会在当前作用域中声明一个变量（如果之前没有声明过），然后在运行时引擎会在作用域中查找该变量，如果能够找到就会对它赋值。</p>
+<h4 id="LHS与RHS"><a href="#LHS与RHS" class="headerlink" title="LHS与RHS"></a>LHS与RHS</h4><p>在查找变量的过程中分为两种类型LHS和RHS。<br>简单地理解为赋值语句的左侧为LHS查询，右侧为RHS查询。</p>
+<p>LHS查询试图找到变量的容器本身，从而可以对其赋值。<br>RHS查询则是找到源值（retrieve his source value）。</p>
+<h3 id="作用域嵌套"><a href="#作用域嵌套" class="headerlink" title="作用域嵌套"></a>作用域嵌套</h3><p>当一个块或者函数嵌套在另一个块或者函数中，就发生了作用域的嵌套。</p>
+<p>具体表现在：如果在当前作用域中无法找到某个变量，引擎则会去外层作用域中继续查找，直到找到该变量或者抵达最外层作用域（也就是全局作用域）停止。</p>
+<p>这样的查找形成了一条链，于是叫他作用域链。</p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>在变量的查找当中，会出现一些查找不到的情况，这样会出现异常。</p>
+<p>但是异常的发生与具体的查询类型有关系。</p>
+<p>如果RHS查询在所有作用域中都找不到变量，则会抛出<code>ReferenceError</code>。<br>而LHS查询，如果在全局作用域中都无法找到并且处于非严格模式，则会创建该名称变量，并返回给引擎。如果是严格模式，同样抛出<code>ReferenceError</code>。</p>
+<p>还有一种<code>TypeError</code>，常常发生在给引用<code>null</code>或者<code>undefined</code>值。<br>这两个异常的区别在于：<br><code>ReferenceError</code>作用域中查找失败。<br><code>TypeError</code>作用域中查找成功，但是操作不合理。</p>
+
+
+                </div>
+            </article>
+
+
+            <div class="post-tags center">
+                
+                    <span class="post-tag chip">
+                        <a href="/tags/Javascript/">Javascript</a>
+                   </span>
+                
+            </div>
+
+
+            <div class="social-share" data-mobile-sites="weibo,qq,qzone,facebook,twitter">
+                <span id="share-to">Share to</span>
+            </div>
+
+            <div class="post-footer">
+                
+                
+                    <a class="right" href="/2024/04/21/first-article/" rel="next" title="第一篇文章">
+                        第一篇文章<i
+                                class="fa fa-arrow-circle-right fa-3x "></i>
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+<footer>
+    
+        <footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            <div>© 2017 Copyright Eric Chen
+                <span class="right">
+                powered by
+                <a target="_blank" rel="noopener" href="http://hexo.io">hexo</a>.
+                theme:
+                <a target="_blank" rel="noopener" href="https://github.com/jonashao/hexo-theme-pteris">pteris</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    
+</footer>
+
+    
+</footer>
+
+
+    
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+
+
+<script src="/lib/materialize/dist/js/materialize.min.js"></script>
+
+
+<script src="/lib/headroom.js/dist/headroom.min.js"></script>
+
+
+<script src="/lib/headroom.js/dist/jQuery.headroom.min.js"></script>
+
+
+
+
+    
+<script src="/lib/social-share.js/dist/js/share.min.js"></script>
+
+
+
+
+
+<script src="/js/pteris.js"></script>
+
+
+
+    
+<script src="/lib/lightgallery.js/dist/js/lightgallery.min.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
