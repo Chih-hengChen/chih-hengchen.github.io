@@ -4,16 +4,16 @@
 
 # Site
 title: Eric Chen's Blogs
-subtitle: ''
-description: ''
-keywords:
+subtitle: '前端开发 / 读书笔记'
+description: 'Eric Chen 的个人主页 - 前端开发者的技术博客与读书笔记'
+keywords: 前端, 前端开发, JavaScript, 读书笔记, Eric Chen
 author: Eric Chen
 language: zh-cn
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://chih-hengchen.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
