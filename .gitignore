@@ -17,3 +17,5 @@ build/
 !/source/lib/highlight/src/highlight.*js
 
 layout/includes/site.txt
+
+.deploy_git/
