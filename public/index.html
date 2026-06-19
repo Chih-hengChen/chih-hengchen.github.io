@@ -94,7 +94,7 @@
         <nav class="atw-global-nav">
     <ul>
         <li class="active"><a href="/">首页</a></li>
-        <li ><a href="/archives/">文章</a></li>
+        <li ><a href="/archives/" style="display:none">文章</a></li>
         <li><a href="https://juejin.cn/user/3408900584639341/posts" target="_blank" rel="noopener">博客</a></li>
         <li><a href="https://ericchen.top/" target="_blank" rel="noopener">项目</a></li>
     </ul>
@@ -547,7 +547,9 @@ main {
         typeChar();
     }
 
-    setTimeout(addLine, 600);
+    document.fonts.ready.then(function() {
+        setTimeout(addLine, 300);
+    });
 })();
 </script>
 

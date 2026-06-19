@@ -445,7 +445,9 @@ main {
         typeChar();
     }
 
-    setTimeout(addLine, 600);
+    document.fonts.ready.then(function() {
+        setTimeout(addLine, 300);
+    });
 })();
 </script>
 {% endblock %}
