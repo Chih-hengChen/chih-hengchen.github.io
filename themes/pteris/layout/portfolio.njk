@@ -1,0 +1,14 @@
+{% extends 'includes/layout.njk' %}
+{% import 'macro/post.njk' as post_template %}
+
+{% block main %}
+    <div id="page" class="portfolio-page">
+        <div class="container">
+            <article>
+                <div class="content portfolio-content">
+                    {{ post_template.render(page) }}
+                </div>
+            </article>
+        </div>
+    </div>
+{% endblock %}

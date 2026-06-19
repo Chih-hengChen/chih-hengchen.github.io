@@ -1,0 +1,8 @@
+<nav class="atw-global-nav">
+    <ul>
+        <li {% if is_home() %}class="active"{% endif %}><a href="/">首页</a></li>
+        <li {% if is_archive() or is_post() or is_tag() or is_category() %}class="active"{% endif %}><a href="/archives/" style="display:none">文章</a></li>
+        <li><a href="https://juejin.cn/user/3408900584639341/posts" target="_blank" rel="noopener">博客</a></li>
+        <li><a href="https://ericchen.top/" target="_blank" rel="noopener">项目</a></li>
+    </ul>
+</nav>

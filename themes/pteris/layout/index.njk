@@ -1,0 +1,451 @@
+{% extends 'includes/layout.njk' %}
+
+{% block footer %}{% endblock %}
+
+{% block main %}
+<div class="atw-home">
+    <canvas id="atw-canvas"></canvas>
+
+    <div class="atw-portrait">
+        <img src="{{ theme.avatar }}" alt="{{ theme.title }}">
+    </div>
+
+    <div class="atw-intro">
+        <p class="atw-greeting">你好，我是 {{ theme.title }}</p>
+        <p class="atw-tagline">Frontend Developer</p>
+        <div class="atw-typewriter" id="typewriter"></div>
+    </div>
+
+    <a href="https://github.com/chih-hengchen" target="_blank" rel="noopener" class="atw-social-link atw-github" title="GitHub">
+        <i class="fa fa-github"></i>
+    </a>
+    <a href="mailto:itsczzzh@gmail.com" class="atw-social-link atw-email" title="Email">
+        <i class="fa fa-envelope"></i>
+    </a>
+</div>
+
+<style>
+.atw-home main,
+main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+.atw-home {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #070707;
+}
+
+#atw-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.atw-home::after {
+    content: '';
+    pointer-events: none;
+    background:
+        linear-gradient(54deg,
+            rgba(22, 145, 198, 0.65) -15%,
+            rgba(22, 145, 198, 0) 48%
+        ),
+        linear-gradient(12deg,
+            rgba(208, 114, 6, 0.65) -10%,
+            rgba(255, 141, 7, 0) 45%
+        );
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.atw-portrait {
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    max-height: 65vh;
+    z-index: 2;
+    transform: translateX(-100%) translateX(55%) translateY(-60%);
+    -webkit-mask-image: linear-gradient(to left, transparent, black 30%);
+    mask-image: linear-gradient(to left, transparent, black 30%);
+}
+
+.atw-portrait img {
+    height: 65vh;
+    max-height: 65vh;
+    width: auto;
+    object-fit: cover;
+    filter: saturate(1.05) contrast(1.02);
+}
+
+.atw-intro {
+    position: absolute;
+    bottom: 16%;
+    left: 0;
+    z-index: 3;
+    padding: 0 48px;
+    color: #fff;
+    max-width: 640px;
+}
+
+.atw-greeting {
+    font: 700 16px/1 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #eeaa23;
+    margin: 0 0 14px 0;
+}
+
+.atw-tagline {
+    font: 800 36px/1.2 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px 0;
+    color: #fff;
+}
+
+.atw-typewriter {
+    margin-top: 12px;
+}
+
+.atw-typewriter p {
+    font: 400 15px/1.7 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    color: #ccc;
+    min-height: 1.7em;
+}
+
+.atw-typewriter .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: #eeaa23;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.atw-social-link {
+    position: absolute;
+    bottom: 16px;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    opacity: 0;
+    z-index: 4;
+    transition: opacity 0.2s cubic-bezier(0, 0, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.atw-social-link i {
+    font-size: 20px;
+}
+
+.atw-github { right: 56px; }
+.atw-email { right: 16px; }
+
+.atw-social-link:hover,
+.atw-social-link:focus {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .atw-portrait {
+        max-height: 50vh;
+        opacity: 0.4;
+    }
+    .atw-portrait img {
+        height: 50vh;
+    }
+    .atw-tagline {
+        font-size: 24px;
+    }
+    .atw-intro {
+        padding: 24px;
+    }
+    .atw-social-link {
+        opacity: 0.5;
+    }
+}
+
+@media (min-width: 640px) {
+    .atw-tagline {
+        font-size: 28px;
+    }
+    .atw-portrait img {
+        height: 80vh;
+    }
+    .atw-social-link {
+        opacity: 0.4;
+    }
+}
+
+@media (min-width: 960px) {
+    .atw-tagline {
+        font-size: 42px;
+    }
+    .atw-portrait img {
+        height: 100vh;
+    }
+    .atw-intro {
+        padding: 64px;
+    }
+}
+</style>
+
+<script>
+(function() {
+    const canvas = document.getElementById('atw-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, stars, nebula, raf;
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+
+    function initNebula() {
+        nebula = [];
+        const colors = ['255, 141, 7', '39, 255, 242', '22, 145, 198', '238, 170, 35'];
+        for (let i = 0; i < 10; i++) {
+            nebula.push({
+                x: Math.random() * w, y: Math.random() * h,
+                r: Math.random() * 300 + 150,
+                color: colors[i % colors.length],
+                a: Math.random() * 0.06 + 0.02,
+                vx: (Math.random() - 0.5) * 0.12,
+                vy: (Math.random() - 0.5) * 0.12
+            });
+        }
+    }
+
+    function initStars() {
+        stars = [];
+        const count = Math.min(350, Math.floor((w * h) / 4000));
+        for (let i = 0; i < count; i++) {
+            stars.push({
+                x: Math.random() * w, y: Math.random() * h,
+                r: Math.random() * 2 + 0.3,
+                a: Math.random() * 0.8 + 0.2,
+                speed: Math.random() * 0.5 + 0.2,
+                phase: Math.random() * Math.PI * 2,
+                vx: (Math.random() - 0.5) * 0.08,
+                vy: (Math.random() - 0.5) * 0.08
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const t = performance.now() * 0.001;
+
+        for (const n of nebula) {
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < -n.r) n.x = w + n.r;
+            if (n.x > w + n.r) n.x = -n.r;
+            if (n.y < -n.r) n.y = h + n.r;
+            if (n.y > h + n.r) n.y = -n.r;
+            const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+            grad.addColorStop(0, 'rgba(' + n.color + ',' + n.a + ')');
+            grad.addColorStop(0.5, 'rgba(' + n.color + ',' + (n.a * 0.4) + ')');
+            grad.addColorStop(1, 'rgba(' + n.color + ',0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(n.x - n.r, n.y - n.r, n.r * 2, n.r * 2);
+        }
+
+        for (const s of stars) {
+            s.x += s.vx;
+            s.y += s.vy;
+            if (s.x < -5) s.x = w + 5;
+            if (s.x > w + 5) s.x = -5;
+            if (s.y < -5) s.y = h + 5;
+            if (s.y > h + 5) s.y = -5;
+            const twinkle = 0.5 + 0.5 * Math.sin(t * s.speed + s.phase);
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,' + (s.a * twinkle) + ')';
+            ctx.fill();
+        }
+
+        raf = requestAnimationFrame(draw);
+    }
+
+    function start() {
+        resize();
+        initNebula();
+        initStars();
+        cancelAnimationFrame(raf);
+        draw();
+    }
+
+    start();
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(start, 200);
+    });
+})();
+</script>
+
+<script>
+(function() {
+    const lines = [
+        '2022 年毕业于武汉大学',
+        '',
+        '有过 2 段 to B 业务经历',
+        '华为云 · 用友',
+        '',
+        '正在探索 to C 方向',
+        'vibe coding 了一个小程序',
+        '点击查看 →|guide',
+        '',
+        '喜欢学习 · 主观能动性强',
+        '有一定的技术追求',
+        '',
+        '最近 focus on AI 全栈与 Agent',
+        '对 DDD · 微前端 · System Design 感兴趣',
+        '热爱户外运动',
+    ];
+
+    const container = document.getElementById('typewriter');
+    const LAST_LINE_IDX = lines.length - 1;
+    let lineIdx = 0;
+    let guideSvg = null;
+    let guidePath = null;
+    let guideActive = false;
+    let guideTarget = null;
+    let guideRaf = null;
+
+    function updateGuideLine() {
+        if (!guideActive || !guidePath) return;
+        const projectLink = document.querySelector('.atw-global-nav ul li:last-child a');
+        if (!projectLink || !guideTarget) return;
+        const pr = projectLink.getBoundingClientRect();
+        const range = document.createRange();
+        range.selectNodeContents(guideTarget);
+        const textRect = range.getBoundingClientRect();
+        if (textRect.width === 0) { guideRaf = requestAnimationFrame(updateGuideLine); return; }
+        const startX = textRect.right + 8;
+        const startY = textRect.top + textRect.height / 2;
+        const endX = pr.right + 12;
+        const endY = pr.top + pr.height / 2;
+        const cx = Math.max(startX, endX) + 30;
+        guidePath.setAttribute('d', `M${startX},${startY} L${cx},${startY} L${cx},${endY} L${endX},${endY}`);
+        guideRaf = requestAnimationFrame(updateGuideLine);
+    }
+
+    function showGuideLine() {
+        const projectLink = document.querySelector('.atw-global-nav ul li:last-child a');
+        guideTarget = document.getElementById('guide-anchor');
+        if (!projectLink || !guideTarget) return;
+        guideSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        guideSvg.setAttribute('class', 'guide-line');
+        guideSvg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:50;pointer-events:none;';
+        var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+        marker.setAttribute('id', 'arr');
+        marker.setAttribute('viewBox', '0 0 10 10');
+        marker.setAttribute('refX', '10');
+        marker.setAttribute('refY', '5');
+        marker.setAttribute('markerWidth', '7');
+        marker.setAttribute('markerHeight', '7');
+        marker.setAttribute('orient', 'auto');
+        var arrPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        arrPath.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+        arrPath.setAttribute('fill', '#eeaa23');
+        marker.appendChild(arrPath);
+        defs.appendChild(marker);
+        guideSvg.appendChild(defs);
+        guidePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        guidePath.setAttribute('stroke', '#eeaa23');
+        guidePath.setAttribute('stroke-width', '1.5');
+        guidePath.setAttribute('fill', 'none');
+        guidePath.setAttribute('stroke-dasharray', '6,4');
+        guidePath.setAttribute('marker-end', 'url(#arr)');
+        guidePath.setAttribute('opacity', '0');
+        const anim = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+        anim.setAttribute('attributeName', 'opacity');
+        anim.setAttribute('from', '0');
+        anim.setAttribute('to', '1');
+        anim.setAttribute('dur', '0.6s');
+        anim.setAttribute('fill', 'freeze');
+        guidePath.appendChild(anim);
+        guideSvg.appendChild(guidePath);
+        document.body.appendChild(guideSvg);
+        guideActive = true;
+        updateGuideLine();
+    }
+
+    function hideGuideLine() {
+        guideActive = false;
+        if (guideRaf) { cancelAnimationFrame(guideRaf); guideRaf = null; }
+        setTimeout(function() {
+            if (guideSvg) {
+                guideSvg.style.transition = 'opacity 1s';
+                guideSvg.style.opacity = '0';
+                setTimeout(function() { if (guideSvg) guideSvg.remove(); }, 1000);
+            }
+        }, 1500);
+    }
+
+    function addLine() {
+        if (lineIdx >= lines.length) {
+            hideGuideLine();
+            return;
+        }
+        const p = document.createElement('p');
+        container.appendChild(p);
+        const text = lines[lineIdx];
+        if (text === '') {
+            lineIdx++;
+            setTimeout(addLine, 150);
+            return;
+        }
+        var rawText = text;
+        var isGuide = text.indexOf('|guide') > -1;
+        if (isGuide) rawText = text.replace('|guide', '');
+        p.id = isGuide ? 'guide-anchor' : '';
+        var displayText = rawText;
+        var charIdx = 0;
+        function typeChar() {
+            if (charIdx < displayText.length) {
+                p.innerHTML = displayText.substring(0, charIdx + 1) + '<span class="cursor"></span>';
+                charIdx++;
+                setTimeout(typeChar, 42);
+            } else {
+                p.textContent = displayText;
+                var doneIdx = lineIdx;
+                lineIdx++;
+                if (isGuide) {
+                    setTimeout(showGuideLine, 300);
+                }
+                setTimeout(addLine, 200);
+            }
+        }
+        typeChar();
+    }
+
+    setTimeout(addLine, 600);
+})();
+</script>
+{% endblock %}

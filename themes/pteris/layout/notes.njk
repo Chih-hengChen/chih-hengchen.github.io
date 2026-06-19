@@ -1,0 +1,52 @@
+{% extends 'includes/layout.njk' %}
+
+{% block main %}
+<div class="main">
+    <div class="container">
+        <h1 style="margin-bottom:0.5rem;">{{ page.title }}</h1>
+        <p style="color:#888;margin-bottom:2rem;">阅读记录与感悟</p>
+
+        {% set hasNotes = false %}
+        {% for post in site.posts.toArray() %}
+          {% if post.categories and post.categories.length %}
+            {% set cats = post.categories.toArray() %}
+            {% if cats[0].name === '读书笔记' %}
+              {% set hasNotes = true %}
+<div class="recent-post-item card hoverable">
+    <div class="card-content">
+        <h2 class="header">
+            <a href="{{ config.root }}{{ post.path }}">{{ post.title }}</a>
+        </h2>
+
+        <p class="post-date">
+            {% if post.book and post.book.author %}
+            <span class="chip" style="background:#93b658;color:#fff;font-size:0.75rem;margin-right:0.5rem;">{{ post.book.author }}</span>
+            {% endif %}
+            {% if post.book and post.book.rating %}
+            <span style="color:#f5a623;">{% for i in range(0, post.book.rating) %}★{% endfor %}</span>
+            {% endif %}
+        </p>
+
+        {% if post.date %}
+        <p class="post-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="{{ post.date.toJSON() }}">{{ date(post.date) }}</time>
+        </p>
+        {% endif %}
+
+        <p>{{ post.excerpt }}</p>
+    </div>
+</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if not hasNotes %}
+        <div style="text-align:center;padding:3rem 0;color:#999;">
+            <i class="fa fa-book" style="font-size:3rem;display:block;margin-bottom:1rem;"></i>
+            <p>还没有读书笔记，敬请期待。</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
