@@ -1,0 +1,315 @@
+/* ===== Aerotwist 暗色主题全局覆盖 ===== */
+
+:root {
+    --atw-bg: #070707;
+    --atw-surface: #141414;
+    --atw-surface-2: #1c1c1c;
+    --atw-border: #2a2a2a;
+    --atw-text: #e8e8e8;
+    --atw-text-dim: #999;
+    --atw-accent: #ff8d07;
+    --atw-accent-2: #27fff2;
+    --atw-link: #27bbf4;
+    --atw-title-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: var(--atw-bg) !important;
+    color: var(--atw-text) !important;
+    font-family: 'Inter', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+main {
+    margin-top: 0 !important;
+    padding-top: 72px;
+}
+
+/* ===== 全局导航 ===== */
+.atw-global-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.atw-global-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0 28px;
+    display: flex;
+    align-items: center;
+}
+
+.atw-global-nav ul li {
+    margin: 0 10px;
+    font: 800 16px/1 var(--atw-title-font);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.atw-global-nav ul li.active a {
+    color: #fff;
+    opacity: 1;
+}
+
+.atw-global-nav ul a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.2s cubic-bezier(0, 0, 0.3, 1);
+}
+
+.atw-global-nav ul a:hover {
+    opacity: 1;
+    text-shadow: none !important;
+}
+
+/* 兼容旧 header 结构 */
+.header-fixed {
+    position: absolute !important;
+    background: transparent !important;
+}
+
+nav, nav * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+nav ul a:hover,
+nav ul a:focus {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background: transparent !important;
+}
+
+/* ===== 内容排版 ===== */
+a {
+    color: var(--atw-link);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #fff !important;
+    font-family: var(--atw-title-font);
+    font-weight: 800;
+}
+
+p, li {
+    color: var(--atw-text);
+}
+
+.container {
+    color: var(--atw-text);
+}
+
+/* ===== 卡片 ===== */
+.card,
+.recent-post-item.card {
+    background: var(--atw-surface) !important;
+    border: 1px solid var(--atw-border);
+    box-shadow: none !important;
+}
+
+.card-content {
+    color: var(--atw-text) !important;
+}
+
+.card .header a,
+.card .header {
+    color: #fff !important;
+}
+
+.card:hover {
+    border-color: var(--atw-accent);
+}
+
+/* ===== 文章页 ===== */
+#post,
+#page,
+#archive,
+#tag {
+    color: var(--atw-text);
+}
+
+#post,
+#page {
+    background: var(--atw-surface) !important;
+    border-radius: 12px !important;
+    padding: 2rem 2.5rem !important;
+    margin-top: 1.5rem !important;
+}
+
+#post .container,
+#page .container {
+    max-width: 720px;
+}
+
+#post .content,
+#page .content {
+    background: transparent !important;
+}
+
+#post-header h1,
+#post .content h1,
+#page .content h1 {
+    color: #fff !important;
+}
+
+.post-date,
+.post-meta-item-icon {
+    color: var(--atw-text-dim) !important;
+}
+
+.post-categories,
+.post-category {
+    color: var(--atw-text-dim) !important;
+}
+
+.post-categories a,
+.post-category a {
+    color: var(--atw-link) !important;
+}
+
+.post-tags .post-tag.chip {
+    background: var(--atw-surface-2) !important;
+    color: var(--atw-text) !important;
+}
+
+.post-tags .post-tag.chip a {
+    color: var(--atw-link) !important;
+}
+
+.content {
+    color: var(--atw-text);
+    line-height: 1.8;
+}
+
+.content p,
+.content li {
+    color: var(--atw-text);
+}
+
+.content a {
+    color: var(--atw-link);
+}
+
+.content blockquote {
+    border-left: 3px solid var(--atw-accent);
+    background: var(--atw-surface);
+    color: var(--atw-text-dim);
+}
+
+/* ===== 代码块 ===== */
+pre,
+.highlight,
+.highlight figcode {
+    background: var(--atw-surface) !important;
+    border: 1px solid var(--atw-border);
+}
+
+code,
+.highlight,
+.highlight pre {
+    background: var(--atw-surface) !important;
+    color: var(--atw-text) !important;
+}
+
+.hljs {
+    background: var(--atw-surface) !important;
+    color: var(--atw-text) !important;
+}
+
+.hljs-keyword,
+.hljs-built_in,
+.hljs-type {
+    color: var(--atw-accent) !important;
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-template-tag,
+.hljs-template-variable {
+    color: var(--atw-accent-2) !important;
+}
+
+.hljs-comment {
+    color: #666 !important;
+}
+
+.hljs-number,
+.hljs-literal {
+    color: var(--atw-accent-2) !important;
+}
+
+p code,
+li code {
+    background: var(--atw-surface-2) !important;
+    color: var(--atw-accent) !important;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* ===== 分页 ===== */
+.pagination li a {
+    color: var(--atw-text-dim) !important;
+}
+
+.pagination li.active {
+    background: var(--atw-accent) !important;
+}
+
+.pagination .page-number.current {
+    background: var(--atw-accent) !important;
+    color: #fff !important;
+}
+
+/* ===== 页脚 ===== */
+footer.page-footer {
+    background: var(--atw-bg) !important;
+    color: var(--atw-text-dim) !important;
+    border-top: 1px solid var(--atw-border);
+}
+
+footer.page-footer a,
+footer .right,
+footer .right a {
+    color: var(--atw-text-dim) !important;
+}
+
+.footer-copyright {
+    background: var(--atw-bg) !important;
+}
+
+/* ===== 归档/标签页 ===== */
+#archive .archive-item a,
+#tag .tag-cloud a {
+    color: var(--atw-link) !important;
+}
+
+/* ===== 文章头部分类标签 ===== */
+.post-categories .post-category span a {
+    color: var(--atw-link) !important;
+}
+
+/* ===== 移动端 ===== */
+@media only screen and (max-width: 600px) {
+    .atw-global-nav ul {
+        margin: 20px 0 0 20px;
+    }
+
+    .atw-global-nav ul li {
+        margin: 0 6px;
+        font-size: 14px;
+    }
+
+    main {
+        padding-top: 60px;
+    }
+}
