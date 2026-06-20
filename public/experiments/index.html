@@ -28,7 +28,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="theme-color" content= #93b658 >
-    <title>tags | Eric Chen's Blogs </title>
+    <title>实验 | Eric Chen's Blogs </title>
 
     
         <meta name="keywords" content="前端, JavaScript, 读书笔记, Eric Chen"/>
@@ -77,6 +77,10 @@
     
 
     
+        
+<link rel="stylesheet" href="/css/experiments.css">
+
+    
 
     
         
@@ -93,7 +97,7 @@
     <ul>
         <li ><a href="/">首页</a></li>
         <li ><a href="/archives/" style="display:none">文章</a></li>
-        <li ><a href="/experiments/">实验</a></li>
+        <li class="active"><a href="/experiments/">实验</a></li>
         <li><a href="https://juejin.cn/user/3408900584639341/posts" target="_blank" rel="noopener">博客</a></li>
         <li><a href="https://ericchen.top/" target="_blank" rel="noopener">项目</a></li>
     </ul>
@@ -104,31 +108,36 @@
 
 <main>
     
-
-    <div id="page">
-        <div class="container">
-            
-            <article>
-                <div class="content">
-                    
-    
-
-                </div>
-            </article>
-
-
-            <div class="social-share" data-mobile-sites="weibo,qq,qzone,facebook,twitter">
-                <span id="share-to">Share to</span>
-            </div>
-
-            <div class="post-footer">
-                
-                
-            </div>
-        </div>
+<div class="experiments-listing">
+    <div id="listing-masthead">
+        <h1>实验</h1>
+        
+        <p id="listing-description">把原理变成条件反射。每个实验对应一个真实 bug 场景，先看 Break 观察症状，再切 Fix 对比差异。</p>
+        
     </div>
 
+    <ul class="posts">
+        
+        <li>
+            <a href="/experiments/react-internals-experiments/">
+                <span class="post-head" style="--exp-accent: #ff8d07; --exp-accent-2: #27fff2;">
+                    <span class="post-head-glyph">⚛</span>
+                </span>
+                <span class="title">React Internals Experiments</span>
+                <span class="meta">
+                    <span class="reading-time">30 min</span>
+                    <span class="date">2025-06</span>
+                </span>
+                
+                <span class="summary">5 个 React 内部原理实验，覆盖 memo 失效、stale closure、并发 streaming、Error Boundary 盲区、Custom Hook 设计。</span>
+                
+            </a>
+        </li>
+        
+    </ul>
 
+    
+</div>
 
 </main>
 

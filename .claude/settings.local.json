@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(git *)",
-      "Bash(npx hexo *)"
+      "Bash(npx hexo *)",
+      "Read(//c/Users/chen5/Code/githubio/themes/pteris/source/**)",
+      "Read(//c/Users/chen5/Code/githubio/public/**)",
+      "Read(//d/ai-tutor/react-knowledge-action-gap/src/**)",
+      "Read(//d/ai-tutor/react-knowledge-action-gap/docs/**)"
     ]
   }
 }

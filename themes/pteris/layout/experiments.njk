@@ -1,0 +1,38 @@
+{% extends 'includes/layout.njk' %}
+
+{% block main %}
+<div class="experiments-listing">
+    <div id="listing-masthead">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+        <p id="listing-description">{{ page.description }}</p>
+        {% endif %}
+    </div>
+
+    <ul class="posts">
+        {% for exp in page.experiments %}
+        <li>
+            <a href="{{ exp.url }}">
+                <span class="post-head" style="--exp-accent: {{ exp.accent or '#ff8d07' }}; --exp-accent-2: {{ exp.accent2 or '#27fff2' }};">
+                    <span class="post-head-glyph">{{ exp.glyph or '⚛' }}</span>
+                </span>
+                <span class="title">{{ exp.title }}</span>
+                <span class="meta">
+                    {% if exp.reading_time %}<span class="reading-time">{{ exp.reading_time }}</span>{% endif %}
+                    {% if exp.date %}<span class="date">{{ exp.date }}</span>{% endif %}
+                </span>
+                {% if exp.summary %}
+                <span class="summary">{{ exp.summary }}</span>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if not page.experiments or page.experiments.length === 0 %}
+    <div style="text-align:center;padding:3rem 0;color:#999;">
+        <p>还没有实验，敬请期待。</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

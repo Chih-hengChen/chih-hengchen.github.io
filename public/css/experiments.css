@@ -1,0 +1,195 @@
+/* ===== Experiments 列表页（参考 Aerotwist Blog Posts） ===== */
+
+.experiments-listing {
+    background: linear-gradient(
+        134deg,
+        oklch(from #ff8d07 l c h / 0.18) -400px,
+        oklch(from #ff8d07 l c h / 0) 500px
+      ),
+      linear-gradient(
+        -165deg,
+        oklch(from #27fff2 calc(l - 0.1) c h / 0.12) -200px,
+        oklch(from #27fff2 calc(l - 0.1) c h / 0) 600px
+      ),
+      var(--atw-bg);
+    min-height: calc(100vh - 72px);
+    padding-bottom: 4rem;
+    color: var(--atw-text);
+}
+
+.experiments-listing #listing-masthead {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4rem 1rem 2rem;
+}
+
+.experiments-listing #listing-masthead h1 {
+    margin: 0 0 1rem 0;
+    font: 800 clamp(36px, 6vw, 60px) / 1.2 var(--atw-title-font);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-align: center;
+}
+
+.experiments-listing #listing-description {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(14px, 1.6vw, 18px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 640px;
+    width: 80vw;
+}
+
+.experiments-listing .posts {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 600px) {
+    .experiments-listing .posts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 960px) {
+    .experiments-listing .posts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.experiments-listing .posts a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: var(--atw-surface);
+    border: 1px solid var(--atw-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s cubic-bezier(0, 0, 0.3, 1),
+                transform 0.2s cubic-bezier(0, 0, 0.3, 1);
+}
+
+.experiments-listing .posts a:hover {
+    border-color: var(--exp-accent, var(--atw-accent));
+    transform: translateY(-2px);
+}
+
+.experiments-listing .post-head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16/9;
+    background:
+        linear-gradient(123deg,
+            transparent 50%,
+            color-mix(in srgb, var(--exp-accent) 40%, transparent) 100%
+        ),
+        linear-gradient(165deg,
+            transparent 40%,
+            color-mix(in srgb, var(--exp-accent-2) 35%, transparent) 100%
+        ),
+        linear-gradient(0deg,
+            color-mix(in srgb, var(--exp-accent-2) 12%, transparent),
+            color-mix(in srgb, var(--exp-accent-2) 6%, transparent)
+        );
+    overflow: hidden;
+}
+
+.experiments-listing .post-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(45deg,
+            transparent 0,
+            transparent 18px,
+            color-mix(in srgb, var(--exp-accent) 8%, transparent) 18px,
+            color-mix(in srgb, var(--exp-accent) 8%, transparent) 36px
+        );
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.experiments-listing .post-head-glyph {
+    position: relative;
+    font-size: 4rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--exp-accent) 60%, transparent);
+    transition: transform 0.3s cubic-bezier(0, 0, 0.3, 1);
+    z-index: 1;
+}
+
+.experiments-listing .posts a:hover .post-head-glyph {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.experiments-listing .title {
+    display: block;
+    font: 800 18px/1.4 var(--atw-title-font);
+    text-transform: uppercase;
+    color: #fff;
+    margin: 1rem 1rem 0.5rem;
+    transition: opacity 0.2s cubic-bezier(0, 0, 0.3, 1);
+    opacity: 0.85;
+}
+
+.experiments-listing .posts a:hover .title {
+    opacity: 1;
+}
+
+.experiments-listing .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 1rem;
+    font: 600 12px/1 var(--atw-title-font);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--atw-accent-2);
+    opacity: 0.7;
+    transition: opacity 0.2s cubic-bezier(0, 0, 0.3, 1);
+}
+
+.experiments-listing .posts a:hover .meta {
+    opacity: 1;
+}
+
+.experiments-listing .reading-time {
+    margin-right: 0.75rem;
+}
+
+.experiments-listing .date {
+    position: relative;
+}
+
+.experiments-listing .date::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--atw-accent-2);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.experiments-listing .summary {
+    display: block;
+    margin: 0.5rem 1rem 1.25rem;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--atw-text-dim);
+}

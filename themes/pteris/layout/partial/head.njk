@@ -96,6 +96,10 @@
         {{ css('css/portfolio.css') }}
     {% endif %}
 
+    {% if page.layout === 'experiments' %}
+        {{ css('css/experiments.css') }}
+    {% endif %}
+
     {% if theme.stylesheets !== undefined and theme.stylesheets.length > 0 %}
         {{ css(theme.stylesheets) }}
     {% endif %}
