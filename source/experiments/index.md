@@ -1,7 +1,7 @@
 ---
 title: 实验
 layout: experiments
-description: 把原理变成条件反射。每个实验对应一个真实 bug 场景，先看 Break 观察症状，再切 Fix 对比差异。
+description: 代码实验场。从真实问题出发，先复现症状，再对比解法，把直觉打磨成反射。
 experiments:
   - key: react-internals
     title: React Internals Experiments
